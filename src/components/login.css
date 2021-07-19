@@ -1,0 +1,16 @@
+body{
+    /* background-color: blanchedalmond !important; */
+}
+.Form_1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background: white;
+    margin-top: 10%;
+    height: 370px;
+    width: 500px;
+    max-width: 100%;
+    margin-left: 32%;
+    border-radius:30px
+}
