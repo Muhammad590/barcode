@@ -1,7 +1,45 @@
-import React, { PureComponent,useState } from 'react'
+import React, { PureComponent,useState  , useRef} from 'react'
 import {Form,Button,Row,Col} from "react-bootstrap";
 import "./signup.css"
+import Barcode from "react-barcode";
+import cssFont from "css-font";
+import styled from "styled-components";
+
+
+
+
+
+
+
 function Signup(){
+  const svgRef = useRef(null);
+  const [input, setInput] = useState(null);
+  const [format, setFormat] = useState("CODE128");
+  const [submit, setSubmit] = useState(false);
+
+
+  const handleDownload = () => {
+    const preface = '<?xml version="1.0" standalone="no"?>\r\n';
+    const svgElement = svgRef.current.refs.renderElement.outerHTML;
+    const svgBlob = new Blob([preface, svgElement], {
+      type: "image/svg+xml;charset=utf-8"
+    });
+    const svgUrl = URL.createObjectURL(svgBlob);
+    const downloadLink = document.createElement("a");
+    downloadLink.href = svgUrl;
+    downloadLink.download = "barcode.svg";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
+
+ const handelSubmit =(e) => {
+   e.preventDefault()
+   setInput('Name: Hassan ,Name: Hassan Name: Hassan Name: Hassan Name: Hassan Name: Hassan Name: Hassan Name: Hassan Name: Hassan')
+   setSubmit(true)
+   console.log("fff")
+ }
 
   // const [userRegister, setUserRegister] = useState({
   //   username : "",
@@ -72,16 +110,19 @@ function Signup(){
 
 
 </div> */}
+<div className="container">
 
+  <div>
+        <div className="Form" style={{
+        position: 'absolute', left: '50%', top: '50%',
+        transform: 'translate(-50%, -50%)'
+      }} >
 
-
-        <div className="Form">
-
-        <Form >
+        <Form onSubmit={handelSubmit} >
         <div className="d-flex justify-content-center mb-3">
           <h2 className="sign">Employee Details</h2>
         </div> 
-  <Form.Group as={Row} className="mb-3 d-flex justify-content-center">
+  <Form.Group style={{marginLeft:'0px', marginRight:'0px'}} as={Row} className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
       Name
     </Form.Label>
@@ -170,8 +211,22 @@ function Signup(){
   
 </Form>
 
-</div>  
-        </>
+{submit==true ?<div style={{display:"flex" , flexDirection:"column" , justifyContent:"center" , alignItems:"center"}}><Barcode
+        ref={svgRef}
+        value={input}
+        // displayValue={false}
+        height={90}
+        format={format}
+        font="Avenir Next"
+        fontOptions="600"
+        textMargin={4}
+        margin={0}
+      /> <Button onClick={handleDownload}>Download</Button> </div>: null }
+                </div> 
+        </div>
+</div>
+
+</>
     )
 }
 
