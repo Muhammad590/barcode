@@ -38,27 +38,44 @@ function Login()
 
     return(
         <>
+
+<div className="container">
         <div className="Form_1">
-        <Form  onSubmit={handleSubmit}>
-
-  <Form.Group className="mb-2">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email"  autoComplete="off" value={userLogin.email} 
+        <Form onSubmit={handleSubmit}>
+        <div className="d-flex justify-content-center mb-3 ">
+          <h2  className="login">Login</h2>
+        </div> 
+  <Form.Group as={Row} className="mb-3">
+    <Form.Label column sm="4"  xs="4">
+      Email
+    </Form.Label>
+    <Col sm="8" xs="8"  className="percent">
+      <Form.Control type="email" className="lined"
+      autoComplete="off" value={userLogin.email} 
     onChange={handleInput}
-    name="email" id="email"  placeholder="Enter email" />
-  </Form.Group>
-  <Form.Group className="mb-4" >
-    <Form.Label>Password</Form.Label>
-    <Form.Control type="password"  autoComplete="off" value={userLogin.password}
-    onChange={handleInput}
-     name="password" id="password"  placeholder="Password" />
+    name="email" id="email" />
+    </Col>
   </Form.Group>
 
-  <Button variant="primary" type="submit" onClick={()=>{alert("Login Successful")}}  className="mb-4">
+  <Form.Group as={Row} className="mb-3 ">
+    <Form.Label column sm="4"  xs="4">
+      Password
+ </Form.Label>
+    <Col sm="8" xs="8"  className="percent">
+      <Form.Control type="password" autoComplete="off" value={userLogin.password}
+    onChange={handleInput}
+     name="password" id="password" className="lined"  />
+    </Col>
+  </Form.Group>
+
+  <Button variant="dark" type="submit" className="mb-4 Login">
     Login
   </Button>
+
+
 </Form>
-        </div>     
+        </div>  
+        </div>  
         </>
     )
 }

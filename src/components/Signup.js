@@ -99,26 +99,16 @@ function Signup(){
     </Col>
   </Form.Group>
 
-  <Form.Group as={Row}  className="mb-3 d-flex justify-content-center datepicker ">
-    <Form.Label column sm="3" xs="3">
-      Birth Date
- </Form.Label>
-    <Col sm="9" xs="9"  className="percent">
-      <Form.Control type="date" className="line"  />
-    </Col>
-  </Form.Group>
 
   <Form.Group as={Row}  className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
-      Sex
+      IdNumber
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-    <select className="select"> 
-                  <option name="male"> Male</option>
-                  <option name="female">Female</option>
-              </select>
+      <Form.Control type="number" className="line"  />
     </Col>
   </Form.Group>
+  
 
   <Form.Group as={Row}  className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
@@ -137,15 +127,28 @@ function Signup(){
       <Form.Control type="number" className="line"  />
     </Col>
   </Form.Group>
+  
+
   <Form.Group as={Row}  className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
-      IdNumber
+      Sex
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-      <Form.Control type="number" className="line"  />
+    <select className="select"> 
+                  <option name="male"> Male</option>
+                  <option name="female">Female</option>
+              </select>
     </Col>
   </Form.Group>
 
+    <Form.Group as={Row}  className="mb-3 d-flex justify-content-center datepicker ">
+    <Form.Label column sm="3" xs="3">
+      Birth Date
+ </Form.Label>
+    <Col sm="9" xs="9"  className="percent">
+      <Form.Control type="date" className="line"  />
+    </Col>
+  </Form.Group>
   <Form.Group as={Row}  className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
       Issue Date
@@ -163,6 +166,8 @@ function Signup(){
       <Form.Control type="date" className="line"  />
     </Col>
   </Form.Group>
+  
+
 
   <Button  type="submit" className="mb-4 submit">
     Submit
