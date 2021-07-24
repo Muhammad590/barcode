@@ -4,7 +4,7 @@ import "./signup.css"
 import Barcode from "react-barcode";
 import cssFont from "css-font";
 import styled from "styled-components";
-
+import axios from 'axios'
 
 
 
@@ -16,6 +16,7 @@ function Signup(){
   const [input, setInput] = useState(null);
   const [format, setFormat] = useState("CODE128");
   const [submit, setSubmit] = useState(false);
+  const [employInfo,setEmployinfo] = useState({})
 
 
   const handleDownload = () => {
@@ -34,11 +35,26 @@ function Signup(){
   };
 
 
- const handelSubmit =(e) => {
-   e.preventDefault()
-   setInput('Name: Hassan ,Name: Hassan Name: Hassan Name: Hassan Name: Hassan Name: Hassan Name: Hassan Name: Hassan Name: Hassan')
-   setSubmit(true)
-   console.log("fff")
+  const handelChange =(e)=> {
+    console.log(e.target.name , e.target.value)
+    setEmployinfo({...employInfo ,[e.target.name]:e.target.value})
+  }
+
+ const handelSubmit =async(e) => {
+    e.preventDefault()
+
+    if(employInfo.name && employInfo.id && employInfo.expiry && employInfo.height && employInfo.weight && employInfo.birthday && employInfo.issuedate)
+    { 
+    setInput(employInfo.name+' ,Weh:'+ employInfo.weight + ' id: '+employInfo.id+' expiry: '+employInfo.expiry+' heigh: '+employInfo.height+' b/d: '+employInfo.birthday+' iss/d: '+employInfo.issuedate)
+    setSubmit(true)
+   console.log("fff", employInfo)
+   let res = await axios.post("user/emplyoyinfo" , employInfo)
+   console.log(res)
+   alert("Info Saved")
+
+    }
+    
+
  }
 
   // const [userRegister, setUserRegister] = useState({
@@ -115,7 +131,8 @@ function Signup(){
   <div>
         <div className="Form" style={{
         position: 'absolute', left: '50%', top: '50%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        
       }} >
 
         <Form onSubmit={handelSubmit} >
@@ -127,7 +144,7 @@ function Signup(){
       Name
     </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-      <Form.Control type="text" className="line" />
+      <Form.Control onChange={handelChange} name="name" type="text" className="line" />
     </Col>
   </Form.Group>
 
@@ -136,37 +153,27 @@ function Signup(){
       Address
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-      <Form.Control  className="line"  />
+      <Form.Control onChange={handelChange} name="address"  className="line"  />
     </Col>
   </Form.Group>
 
-  <Form.Group as={Row}  className="mb-3 d-flex justify-content-center datepicker ">
-    <Form.Label column sm="3" xs="3">
-      Birth Date
- </Form.Label>
-    <Col sm="9" xs="9"  className="percent">
-      <Form.Control type="date" className="line"  />
-    </Col>
-  </Form.Group>
 
   <Form.Group as={Row}  className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
-      Sex
+      IdNumber
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-    <select className="select"> 
-                  <option name="male"> Male</option>
-                  <option name="female">Female</option>
-              </select>
+      <Form.Control onChange={handelChange} name="id" type="number" className="line"  />
     </Col>
   </Form.Group>
+  
 
   <Form.Group as={Row}  className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
       Height
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-      <Form.Control type="number" className="line"  />
+      <Form.Control onChange={handelChange} name="height" type="number" className="line"  />
     </Col>
   </Form.Group>
 
@@ -175,24 +182,37 @@ function Signup(){
       Weight
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-      <Form.Control type="number" className="line"  />
+      <Form.Control onChange={handelChange} name="weight" type="number" className="line"  />
     </Col>
   </Form.Group>
+  
+
   <Form.Group as={Row}  className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
-      IdNumber
+      Sex
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-      <Form.Control type="number" className="line"  />
+    <select onSelect={handelChange} name="sex" className="select"> 
+                  <option name="male"> Male</option>
+                  <option name="female">Female</option>
+              </select>
     </Col>
   </Form.Group>
 
+    <Form.Group as={Row}  className="mb-3 d-flex justify-content-center datepicker ">
+    <Form.Label column sm="3" xs="3">
+      Birth Date
+ </Form.Label>
+    <Col sm="9" xs="9"  className="percent">
+      <Form.Control onChange={handelChange} name="birthday" type="date" className="line"  />
+    </Col>
+  </Form.Group>
   <Form.Group as={Row}  className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
       Issue Date
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-      <Form.Control type="date" className="line"  />
+      <Form.Control onChange={handelChange} name="issuedate" type="date" className="line"  />
     </Col>
   </Form.Group>
 
@@ -201,16 +221,18 @@ function Signup(){
       Expire Date
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
-      <Form.Control type="date" className="line"  />
+      <Form.Control onChange={handelChange} name="expiry" type="date" className="line"  />
     </Col>
   </Form.Group>
+  
+
 
   <Button  type="submit" className="mb-4 submit">
     Submit
   </Button>
   
 </Form>
-
+<div style={{overflow:"scroll"}}>
 {submit==true ?<div style={{display:"flex" , flexDirection:"column" , justifyContent:"center" , alignItems:"center"}}><Barcode
         ref={svgRef}
         value={input}
@@ -222,6 +244,7 @@ function Signup(){
         textMargin={4}
         margin={0}
       /> <Button onClick={handleDownload}>Download</Button> </div>: null }
+      </div>
                 </div> 
         </div>
 </div>

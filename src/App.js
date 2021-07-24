@@ -2,6 +2,7 @@
 import './App.css';
 import Signup from "./components/Signup"
 import login from "./components/login"
+import axios from 'axios'
 import {
   BrowserRouter as Router,
   Route,
@@ -9,6 +10,7 @@ import {
 } from "react-router-dom";
 
 function App() {
+  axios.defaults.baseURL = "http://localhost:4000/api/"
   return (
 
 <>
