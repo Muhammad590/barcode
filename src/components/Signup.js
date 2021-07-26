@@ -139,7 +139,7 @@ function Signup(){
         <div className="d-flex justify-content-center mb-3">
           <h2 className="sign">Employee Details</h2>
         </div> 
-  <Form.Group style={{marginLeft:'0px', marginRight:'0px'}} as={Row} className="mb-3 d-flex justify-content-center">
+  <Form.Group as={Row} className="mb-3 d-flex justify-content-center">
     <Form.Label column sm="3"  xs="3">
       Name
     </Form.Label>
@@ -193,18 +193,18 @@ function Signup(){
  </Form.Label>
     <Col sm="9" xs="9"  className="percent">
     <select onSelect={handelChange} name="sex" className="select"> 
-                  <option name="male"> Male</option>
-                  <option name="female">Female</option>
+                  <option name="male" style={{background:'black'}}> Male</option>
+                  <option name="female"  style={{background:'black'}}>Female</option>
               </select>
     </Col>
   </Form.Group>
 
-    <Form.Group as={Row}  className="mb-3 d-flex justify-content-center datepicker ">
+    <Form.Group as={Row}  className="mb-3 d-flex justify-content-center ">
     <Form.Label column sm="3" xs="3">
       Birth Date
  </Form.Label>
-    <Col sm="9" xs="9"  className="percent">
-      <Form.Control onChange={handelChange} name="birthday" type="date" className="line"  />
+    <Col sm="9" xs="9"  className="percent"  >
+      <Form.Control onChange={handelChange} name="birthday" type="date" className="line" />
     </Col>
   </Form.Group>
   <Form.Group as={Row}  className="mb-3 d-flex justify-content-center">
